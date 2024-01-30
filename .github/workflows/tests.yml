@@ -1,0 +1,24 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: [3.0.x, 2.7.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Bundle
+        run: |
+          sudo apt update
+          sudo apt install -y libsqlite3-dev
+          bundle install
+      - name: Yarn
+        run: ./bin/rails yarn:install
+      - name: Rspec
+        run: bundle exec rspec

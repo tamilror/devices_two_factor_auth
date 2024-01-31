@@ -29,3 +29,11 @@ You can run this example by following the steps below.
 
        Username: admin@example.com
        Password: letmein
+
+
+ 5. Docker command 
+
+   docker-compose up --build
+   docker-compose up -d
+   docker-compose exec app bundle exec rake db:setup db:migrate
+   docker-compose exec app bundle exec rake db:seed      

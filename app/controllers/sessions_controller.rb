@@ -6,5 +6,10 @@ class SessionsController < Devise::SessionsController
                         if: -> { action_name == 'create' && otp_two_factor_enabled? }
 
   protect_from_forgery with: :exception, prepend: true, except: :destroy
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+  end
 
 end
